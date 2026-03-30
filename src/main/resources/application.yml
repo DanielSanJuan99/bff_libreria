@@ -1,0 +1,9 @@
+server:
+  port: ${SERVER_PORT}
+
+spring:
+  application:
+    name: biblioteca-bff
+
+functions:
+  base-url: ${FUNCTIONS_BASE_URL}
