@@ -8,6 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @ConfigurationPropertiesScan
 public class BffApplication {
 
+    /**
+     * Punto de entrada de la aplicación BFF.
+     *
+     * @param args argumentos de arranque en {@code String[]}.
+     */
     public static void main(String[] args) {
         SpringApplication.run(BffApplication.class, args);
     }
