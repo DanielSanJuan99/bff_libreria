@@ -3,6 +3,7 @@ package cl.duoc.biblioteca.bff.client;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -65,9 +66,11 @@ public class FunctionsGatewayClient {
      * @return usuario creado de tipo {@link UsuarioDto}.
      */
     public UsuarioDto createUsuario(UsuarioDto request) {
+        String requestBody = toJson(request);
         String response = restClient.post()
                 .uri("/usuarios")
-                .body(request)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(requestBody)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, UsuarioDto.class);
@@ -81,9 +84,11 @@ public class FunctionsGatewayClient {
      * @return usuario actualizado de tipo {@link UsuarioDto}.
      */
     public UsuarioDto updateUsuario(String id, UsuarioDto request) {
+        String requestBody = toJson(request);
         String response = restClient.put()
                 .uri("/usuarios/{id}", id)
-                .body(request)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(requestBody)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, UsuarioDto.class);
@@ -139,9 +144,11 @@ public class FunctionsGatewayClient {
      * @return préstamo creado de tipo {@link PrestamoDto}.
      */
     public PrestamoDto createPrestamo(PrestamoDto request) {
+        String requestBody = toJson(request);
         String response = restClient.post()
                 .uri("/prestamos")
-                .body(request)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(requestBody)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, PrestamoDto.class);
@@ -155,9 +162,11 @@ public class FunctionsGatewayClient {
      * @return préstamo actualizado de tipo {@link PrestamoDto}.
      */
     public PrestamoDto updatePrestamo(String id, PrestamoDto request) {
+        String requestBody = toJson(request);
         String response = restClient.put()
                 .uri("/prestamos/{id}", id)
-                .body(request)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(requestBody)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, PrestamoDto.class);
@@ -213,9 +222,11 @@ public class FunctionsGatewayClient {
      * @return libro creado de tipo {@link LibroDto}.
      */
     public LibroDto createLibro(LibroDto request) {
+        String requestBody = toJson(request);
         String response = restClient.post()
                 .uri("/libros")
-                .body(request)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(requestBody)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, LibroDto.class);
@@ -229,9 +240,11 @@ public class FunctionsGatewayClient {
      * @return libro actualizado de tipo {@link LibroDto}.
      */
     public LibroDto updateLibro(String id, LibroDto request) {
+        String requestBody = toJson(request);
         String response = restClient.put()
                 .uri("/libros/{id}", id)
-                .body(request)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(requestBody)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, LibroDto.class);
@@ -287,9 +300,11 @@ public class FunctionsGatewayClient {
      * @return autor creado de tipo {@link AutorDto}.
      */
     public AutorDto createAutor(AutorDto request) {
+        String requestBody = toJson(request);
         String response = restClient.post()
                 .uri("/autores")
-                .body(request)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(requestBody)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, AutorDto.class);
@@ -303,12 +318,22 @@ public class FunctionsGatewayClient {
      * @return autor actualizado de tipo {@link AutorDto}.
      */
     public AutorDto updateAutor(String id, AutorDto request) {
+        String requestBody = toJson(request);
         String response = restClient.put()
                 .uri("/autores/{id}", id)
-                .body(request)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(requestBody)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, AutorDto.class);
+    }
+
+    private String toJson(Object request) {
+        try {
+            return OBJECT_MAPPER.writeValueAsString(request);
+        } catch (Exception ex) {
+            throw new IllegalStateException("Error serializando request para Functions", ex);
+        }
     }
 
     /**
