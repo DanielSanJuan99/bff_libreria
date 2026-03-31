@@ -28,6 +28,24 @@ El BFF expone una API REST unificada y coherente para la gestión de un sistema 
 
 ---
 
+## ⚡ Colección Postman
+
+El repositorio incluye una colección de Postman lista para ejecutar pruebas CRUD completas:
+
+- Archivo: `postman_collection/sumativa_1_cloud_native_2.postman_collection.json`
+- Cobertura: `usuarios`, `libros`, `autores`, `prestamos`
+- Operaciones: `GET`, `GET by id`, `POST`, `PUT`, `DELETE`
+
+La colección permite **tres tipos de pruebas**:
+
+1. **Infraestructura local**: pruebas contra endpoints locales.
+2. **Infraestructura en nube pasando por BFF**: validación end-to-end BFF + Azure Functions.
+3. **Azure Functions directo (sin BFF)**: validación aislada del backend serverless.
+
+> Esta colección está diseñada para validar flujos CRUD completos.
+
+---
+
 ## Requisitos Técnicos
 
 | Componente | Versión | Notas |
@@ -393,6 +411,25 @@ Elimina un préstamo.
 ---
 
 ## Casos de Prueba
+
+### Pruebas con Colección Postman
+
+Colección disponible en:
+
+- `postman_collection/sumativa_1_cloud_native_2.postman_collection.json`
+
+Modos de ejecución incluidos en la colección:
+
+1. **CRUD completo en entorno local**
+  - Objetivo: validar comportamiento local de servicios y rutas.
+2. **CRUD completo en nube pasando por BFF**
+  - Objetivo: validar integración end-to-end con el gateway.
+3. **CRUD completo directo a Azure Functions (sin BFF)**
+  - Objetivo: validar backend serverless de forma aislada.
+
+Recomendación operativa:
+
+- Ejecutar los tres modos para cubrir regresiones de enrutamiento, serialización y contrato HTTP.
 
 ### Escenario 1: Crear un Usuario y Consultar
 
