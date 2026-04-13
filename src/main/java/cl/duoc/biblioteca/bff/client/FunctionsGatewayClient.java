@@ -352,6 +352,70 @@ public class FunctionsGatewayClient {
     }
 
     /**
+     * Obtiene resumen de catálogo desde Azure Functions.
+     *
+     * @return resumen en {@link Map}.
+     */
+    public Map<String, Object> getResumenCatalogo() {
+        String response = restClient.get()
+                .uri("/resumen/catalogo")
+                .retrieve()
+                .body(String.class);
+        return parseResponse(response, new TypeReference<>() {
+        });
+    }
+
+    /**
+     * Obtiene resumen general de usuarios y préstamos desde Azure Functions.
+     *
+     * @return resumen en {@link Map}.
+     */
+    public Map<String, Object> getResumenGeneral() {
+        String response = restClient.get()
+                .uri("/resumen/general")
+                .retrieve()
+                .body(String.class);
+        return parseResponse(response, new TypeReference<>() {
+        });
+    }
+
+    /**
+     * Ejecuta consulta GraphQL del dominio catálogo.
+     *
+     * @param request body GraphQL en {@link Map}.
+     * @return respuesta GraphQL en {@link Map}.
+     */
+    public Map<String, Object> postGraphqlCatalogo(Map<String, Object> request) {
+        String requestBody = toJson(request);
+        String response = restClient.post()
+                .uri("/graphql/catalogo")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(requestBody)
+                .retrieve()
+                .body(String.class);
+        return parseResponse(response, new TypeReference<>() {
+        });
+    }
+
+    /**
+     * Ejecuta consulta GraphQL del dominio general.
+     *
+     * @param request body GraphQL en {@link Map}.
+     * @return respuesta GraphQL en {@link Map}.
+     */
+    public Map<String, Object> postGraphqlGeneral(Map<String, Object> request) {
+        String requestBody = toJson(request);
+        String response = restClient.post()
+                .uri("/graphql/general")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(requestBody)
+                .retrieve()
+                .body(String.class);
+        return parseResponse(response, new TypeReference<>() {
+        });
+    }
+
+    /**
      * Convierte una respuesta JSON a un tipo concreto de clase.
      *
      * @param response contenido JSON en {@link String}.
