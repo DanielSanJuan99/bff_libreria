@@ -2,9 +2,9 @@
 
 ## Descripción General
 
-**BFF Biblioteca** es un Backend for Frontend que actúa como puerta de enlace (gateway) entre aplicaciones cliente y un conjunto de microservicios serverless en Azure Functions. 
+**BFF Biblioteca** es un Backend for Frontend que actúa como puerta de enlace (gateway) entre aplicaciones cliente y un conjunto de microservicios serverless en Azure Functions.
 
-El BFF expone una API REST unificada y coherente para la gestión de un sistema de biblioteca, centralizando la comunicación con múltiples funciones de Azure que manejan diferentes entidades de negocio (usuarios, libros, autores, préstamos).
+El BFF expone una API REST unificada y coherente para la gestión de un sistema de biblioteca, centralizando la comunicación con múltiples funciones de Azure que manejan diferentes entidades de negocio (usuarios, libros, autores, préstamos, resúmenes y consultas GraphQL).
 
 ### Propósito Principal
 
@@ -22,6 +22,7 @@ El BFF expone una API REST unificada y coherente para la gestión de un sistema 
 ✓ **Clientes HTTP Robustos**: Serialización explícita de JSON y manejo robusto de respuestas  
 ✓ **Configuración Flexible**: Soporta múltiples entornos (desarrollo, staging, producción)  
 ✓ **Contenedorización Docker**: Imagen multi-arquitectura (amd64 + arm64) en Docker Hub  
+✓ **Soporte REST y GraphQL**: Expone rutas para resúmenes y consultas GraphQL del backend  
 ✓ **Validación de Datos**: Integración con Jakarta Bean Validation  
 ✓ **Documentación Completa**: JavaDoc en todas las clases principales  
 ✓ **Pruebas Automatizadas**: Suite de pruebas unitarias incluida  
@@ -33,7 +34,9 @@ El BFF expone una API REST unificada y coherente para la gestión de un sistema 
 El repositorio incluye una colección de Postman lista para ejecutar pruebas CRUD completas:
 
 - Archivo: `postman_collection/sumativa_1_cloud_native_2.postman_collection.json`
+- Archivo: `postman_collection/sumativa_2_cloud_native_2.postman_collection.json`
 - Cobertura: `usuarios`, `libros`, `autores`, `prestamos`
+- Cobertura adicional: `resumen/catalogo`, `resumen/general`, `graphql/catalogo`, `graphql/general`
 - Operaciones: `GET`, `GET by id`, `POST`, `PUT`, `DELETE`
 
 La colección permite **tres tipos de pruebas**:
@@ -90,7 +93,9 @@ bff_libreria/
 │   │   │   │   ├── UsuariosController.java      # Endpoints de usuarios
 │   │   │   │   ├── LibrosController.java        # Endpoints de libros
 │   │   │   │   ├── AutoresController.java       # Endpoints de autores
-│   │   │   │   └── PrestamosController.java     # Endpoints de préstamos
+│   │   │   │   ├── PrestamosController.java     # Endpoints de préstamos
+│   │   │   │   ├── ResumenController.java       # Endpoints de resumen
+│   │   │   │   └── GraphqlController.java       # Endpoints GraphQL
 │   │   │   └── dto/
 │   │   │       ├── UsuarioDto.java
 │   │   │       ├── LibroDto.java
@@ -184,6 +189,22 @@ mvn test
 ## Endpoints Disponibles
 
 Todos los endpoints retornan `application/json` y requieren que Azure Functions esté operativo.
+
+### **Resumen**
+
+#### GET `/api/resumen/catalogo`
+Obtiene métricas agregadas del catálogo desde la Function App.
+
+#### GET `/api/resumen/general`
+Obtiene métricas agregadas de usuarios y préstamos desde la Function App.
+
+### **GraphQL**
+
+#### POST `/api/graphql/catalogo`
+Reenvía consultas GraphQL del dominio catálogo.
+
+#### POST `/api/graphql/general`
+Reenvía consultas GraphQL del dominio general.
 
 ### **Usuarios**
 
@@ -417,6 +438,7 @@ Elimina un préstamo.
 Colección disponible en:
 
 - `postman_collection/sumativa_1_cloud_native_2.postman_collection.json`
+- `postman_collection/sumativa_2_cloud_native_2.postman_collection.json`
 
 Modos de ejecución incluidos en la colección:
 
@@ -426,6 +448,9 @@ Modos de ejecución incluidos en la colección:
   - Objetivo: validar integración end-to-end con el gateway.
 3. **CRUD completo directo a Azure Functions (sin BFF)**
   - Objetivo: validar backend serverless de forma aislada.
+
+4. **Resumen y GraphQL desde BFF**
+  - Objetivo: validar los nuevos endpoints de resumen y GraphQL expuestos por el gateway.
 
 Recomendación operativa:
 
