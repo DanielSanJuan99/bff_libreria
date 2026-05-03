@@ -1,0 +1,3661 @@
+{
+  "info": {
+    "_postman_id": "5998d470-0e7b-441a-ae2d-bb1e82cb550f",
+    "name": "proyecto_biblioteca__cloud_native_II",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "19235223"
+  },
+  "item": [
+    {
+      "name": "localhost",
+      "item": [
+        {
+          "name": "libros",
+          "item": [
+            {
+              "name": "libros",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ATRASADO\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/libros",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "libros"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "libros_por_id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ATRASADO\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/libros/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "libros",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_libro",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/libros/6",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "libros",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update_libro",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isbn\": \"9780061120084\",\n  \"titulo\": \"To Kill a Mockingbird\",\n  \"anioPublicacion\": 1961,\n  \"copiasTotales\": 3,\n  \"copiasDisponible\": 2,\n  \"idAutor\": \"2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/libros/6",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "libros",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create_libro",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isbn\": \"9780061120084\",\n  \"titulo\": \"To Kill a Mockingbird\",\n  \"anioPublicacion\": 1960,\n  \"copiasTotales\": 3,\n  \"copiasDisponible\": 2,\n  \"idAutor\": \"2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/libros",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "libros"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "usuarios",
+          "item": [
+            {
+              "name": "create_usuario",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Pedro\",\n  \"apellidoPaterno\": \"Soto\",\n  \"apellidoMaterno\": \"García\",\n  \"email\": \"pedro.soto@correo.cl\",\n  \"activo\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/usuarios",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "usuarios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "usuarios",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/usuarios",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "usuarios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "usuario_por_id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/usuarios/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "usuarios",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update_usuario",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidoPaterno\": \"Molina\",\n  \"apellidoMaterno\": \"Rojas\",\n  \"email\": \"cmolina@correo.cl\",\n  \"activo\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/usuarios/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "usuarios",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_usuario",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/usuarios/6",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "usuarios",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "prestamos",
+          "item": [
+            {
+              "name": "prestamos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/prestamos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "prestamos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create_prestamo",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"6\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-25\",\n  \"fechaDevolucion\": \"2026-03-27\",\n  \"estado\": \"ACTIVO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/prestamos",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "prestamos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_prestamo",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ACTIVO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/prestamos/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "prestamos",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update_prestamo",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"6\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-25\",\n  \"fechaDevolucion\": \"2026-03-26\",\n  \"estado\": \"DEVUELTO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/prestamos/5",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "prestamos",
+                    "5"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "autores",
+          "item": [
+            {
+              "name": "autores",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/autores",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "autores"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "autores_por_id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/autores/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "autores",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update_autor",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombreAutor\": \"Mario V. Llosa\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/autores/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "autores",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create_autor",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombreAutor\": \"Mario Vargas Llosa\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/autores",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "autores"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_autor",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/autores/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "autores",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "BFF",
+          "item": [
+            {
+              "name": "usuarios",
+              "item": [
+                {
+                  "name": "create_usuario",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nombre\": \"Pedro\",\n  \"apellidoPaterno\": \"Soto\",\n  \"apellidoMaterno\": \"García\",\n  \"email\": \"pedro.soto@correo.cl\",\n  \"activo\": true\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/usuarios",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "usuarios",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/usuarios",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "usuario_por_id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/usuarios/4",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios",
+                        "4"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "update_usuario",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidoPaterno\": \"Molina\",\n  \"apellidoMaterno\": \"Rojas\",\n  \"email\": \"cmolina@correo.cl\",\n  \"activo\": true\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/usuarios/4",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios",
+                        "4"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete_usuario",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/usuarios/6",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios",
+                        "6"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "libros",
+              "item": [
+                {
+                  "name": "libros",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ATRASADO\"\n}"
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/libros",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "libros_por_id",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ATRASADO\"\n}"
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/libros/4",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros",
+                        "4"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete_libro",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/libros/6",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros",
+                        "6"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "update_libro",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"isbn\": \"9780061120084\",\n  \"titulo\": \"To Kill a Mockingbird\",\n  \"anioPublicacion\": 1960,\n  \"copiasTotales\": 3,\n  \"copiasDisponible\": 3,\n  \"idAutor\": \"2\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/libros",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "create_libro",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"isbn\": \"9780061120084\",\n  \"titulo\": \"To Kill a Mockingbird\",\n  \"anioPublicacion\": 1960,\n  \"copiasTotales\": 3,\n  \"copiasDisponible\": 2,\n  \"idAutor\": \"2\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/libros",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "prestamos",
+              "item": [
+                {
+                  "name": "prestamos",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/prestamos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "prestamos"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "create_prestamo",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"idUsuario\": \"6\",\n    \"idLibro\": \"1\",\n    \"fechaPrestamo\": \"2026-05-02\",\n    \"fechaDevolucion\": \"2026-05-16\",\n    \"estado\": \"ACTIVO\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/prestamos",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "prestamos"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete_prestamo",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ACTIVO\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/prestamos/4",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "prestamos",
+                        "4"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "update_prestamo",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"idUsuario\": \"6\",\n    \"idLibro\": \"1\",\n    \"fechaPrestamo\": \"2026-05-02\",\n    \"fechaDevolucion\": \"2026-05-16\",\n    \"estado\": \"DEVUELTO\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/prestamos/5",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "prestamos",
+                        "5"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "autores",
+              "item": [
+                {
+                  "name": "autores",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/autores",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "autores_por_id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/autores/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "update_autor",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nombreAutor\": \"Mario V. Llosa\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/autores/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "create_autor",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nombreAutor\": \"Mario Vargas Llosa\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:8080/api/autores",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete_autor",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://localhost:8080/api/autores/1",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "publisher",
+              "item": [
+                {
+                  "name": "prestamo",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"eventType\": \"Prestamo.Creado\",\n    \"subject\": \"biblioteca/prestamos/test-001\",\n    \"data\": {\n        \"id\": \"999\",\n        \"idUsuario\": \"1\",\n        \"idLibro\": \"1\",\n        \"fechaPrestamo\": \"2026-05-01\",\n        \"fechaDevolucion\": \"2026-05-15\",\n        \"estado\": \"PRESTADO\"\n    }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "https://functioneventrouting-f9bfg5dqcffhftas.eastus-01.azurewebsites.net/api/eventPublisher?code={{REEMPLAZAR_FUNCTION_KEY}}",
+                      "protocol": "https",
+                      "host": [
+                        "functioneventrouting-f9bfg5dqcffhftas",
+                        "eastus-01",
+                        "azurewebsites",
+                        "net"
+                      ],
+                      "path": [
+                        "api",
+                        "eventPublisher"
+                      ],
+                      "query": [
+                        {
+                          "key": "code",
+                          "value": "{{REEMPLAZAR_FUNCTION_KEY}}"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "devolucion",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"eventType\": \"Prestamo.Devuelto\",\n    \"subject\": \"biblioteca/prestamos/test-001\",\n    \"data\": {\n        \"id\": \"999\",\n        \"idUsuario\": \"1\",\n        \"idLibro\": \"1\",\n        \"estado\": \"DEVUELTO\"\n    }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "https://functioneventrouting-f9bfg5dqcffhftas.eastus-01.azurewebsites.net/api/eventPublisher?code={{REEMPLAZAR_FUNCTION_KEY}}",
+                      "protocol": "https",
+                      "host": [
+                        "functioneventrouting-f9bfg5dqcffhftas",
+                        "eastus-01",
+                        "azurewebsites",
+                        "net"
+                      ],
+                      "path": [
+                        "api",
+                        "eventPublisher"
+                      ],
+                      "query": [
+                        {
+                          "key": "code",
+                          "value": "{{REEMPLAZAR_FUNCTION_KEY}}"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "inhabilitar_usuario",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"eventType\": \"Usuario.Inactivado\",\n    \"subject\": \"biblioteca/usuarios/5\",\n    \"data\": {\n        \"id\": \"5\",\n        \"prestamosActivos\": 2\n    }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "https://functioneventrouting-f9bfg5dqcffhftas.eastus-01.azurewebsites.net/api/eventPublisher?code={{REEMPLAZAR_FUNCTION_KEY}}",
+                      "protocol": "https",
+                      "host": [
+                        "functioneventrouting-f9bfg5dqcffhftas",
+                        "eastus-01",
+                        "azurewebsites",
+                        "net"
+                      ],
+                      "path": [
+                        "api",
+                        "eventPublisher"
+                      ],
+                      "query": [
+                        {
+                          "key": "code",
+                          "value": "{{REEMPLAZAR_FUNCTION_KEY}}"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "notificaciones",
+              "item": [
+                {
+                  "name": "notificaciones",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/notificaciones",
+                      "protocol": "https",
+                      "host": [
+                        "functionsbiblioteca-d4bpb6h8fybvbhac",
+                        "eastus-01",
+                        "azurewebsites",
+                        "net"
+                      ],
+                      "path": [
+                        "api",
+                        "notificaciones"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "notificacion_por_id",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/notificaciones/1",
+                      "protocol": "https",
+                      "host": [
+                        "functionsbiblioteca-d4bpb6h8fybvbhac",
+                        "eastus-01",
+                        "azurewebsites",
+                        "net"
+                      ],
+                      "path": [
+                        "api",
+                        "notificaciones",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "catalogo",
+          "item": [
+            {
+              "name": "resumenCatalogo",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:7071/api/resumen/catalogo",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "resumen",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "libros_y_autores",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { libros { id titulo idAutor } autores { id nombreAutor } }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/graphql/catalogo",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "libro_por_id",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($id: ID!) { libro(id: $id) { id titulo isbn anioPublicacion copiasTotales copiasDisponible idAutor } }\",\n  \"variables\": {\n    \"id\": \"{{id_libro}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/graphql/catalogo",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "autor_por_id",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($id: ID!) { autor(id: $id) { id nombreAutor } }\",\n  \"variables\": {\n    \"id\": \"{{id_autor}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/graphql/catalogo",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "libros_por_autor",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($idAutor: ID!) { librosPorAutor(idAutor: $idAutor) { id titulo idAutor } }\",\n  \"variables\": {\n    \"idAutor\": \"{{id_autor}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/graphql/catalogo",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "querys_por_operation_name",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query librosYAutores { libros { id titulo idAutor } autores { id nombreAutor } } query libroPorId($id: ID!) { libro(id: $id) { id titulo isbn } } query librosDeAutor($idAutor: ID!) { librosPorAutor(idAutor: $idAutor) { id titulo idAutor } } query autorPorId($id: ID!) { autor(id: $id) { id nombreAutor } }\",\n  \"operationName\": \"librosYAutores\",\n  \"variables\": {\n    \"idAutor\": \"{{id_autor}}\",\n    \"id\": \"{{id_libro}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/graphql/catalogo",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "general",
+          "item": [
+            {
+              "name": "usuarios_y_prestamos",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { usuarios { id nombre email activo } prestamos { id idUsuario idLibro estado } }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/graphql/general",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "graphql",
+                    "general"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "usuario_por_id",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($id: ID!) { usuario(id: $id) { id nombre apellidoPaterno apellidoMaterno email activo } }\",\n  \"variables\": {\n    \"id\": \"{{id_usuario}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/graphql/general",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "graphql",
+                    "general"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "prestamo_por_id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($id: ID!) { prestamo(id: $id) { id idUsuario idLibro fechaPrestamo fechaDevolucion estado } }\",\n  \"variables\": {\n    \"id\": \"{{id_prestamo}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:7071/api/graphql/general",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7071",
+                  "path": [
+                    "api",
+                    "graphql",
+                    "general"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "azure_functions",
+      "item": [
+        {
+          "name": "libros",
+          "item": [
+            {
+              "name": "libros",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ATRASADO\"\n}"
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/libros",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "libros"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "libros_por_id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ATRASADO\"\n}"
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/libros/6",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "libros",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_libro",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/libros/6",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "libros",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update_libro",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": " {\n    \"isbn\": \"9780061120084\",\n    \"titulo\": \"To Kill a Mockingbird\",\n    \"anioPublicacion\": 1960,\n    \"copiasTotales\": 3,\n    \"copiasDisponible\": 3,\n    \"idAutor\": \"7\"\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/libros/6",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "libros",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create_libro",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isbn\": \"9780061120084\",\n  \"titulo\": \"To Kill a Mockingbird\",\n  \"anioPublicacion\": 1960,\n  \"copiasTotales\": 3,\n  \"copiasDisponible\": 2,\n  \"idAutor\": \"7\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/libros",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "libros"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "usuarios",
+          "item": [
+            {
+              "name": "usuarios",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/usuarios",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "usuarios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create_usuario",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Pedro\",\n  \"apellidoPaterno\": \"Soto\",\n  \"apellidoMaterno\": \"García\",\n  \"email\": \"pedro.soto@correo.cl\",\n  \"activo\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/usuarios",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "usuarios"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "usuario_por_id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/usuarios/4",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "usuarios",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update_usuario",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellidoPaterno\": \"Molina\",\n  \"apellidoMaterno\": \"Rojas\",\n  \"email\": \"cmolina@correo.cl\",\n  \"activo\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/usuarios/4",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "usuarios",
+                    "4"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_usuario",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/usuarios/6",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "usuarios",
+                    "6"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "prestamos",
+          "item": [
+            {
+              "name": "prestamos",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/prestamos",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "prestamos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create_prestamo",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"6\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-25\",\n  \"fechaDevolucion\": \"2026-03-27\",\n  \"estado\": \"ACTIVO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/prestamos",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "prestamos"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_prestamo",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ACTIVO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/prestamos/5",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "prestamos",
+                    "5"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update_prestamo",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"idUsuario\": \"6\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-25\",\n  \"fechaDevolucion\": \"2026-03-26\",\n  \"estado\": \"DEVUELTO\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/prestamos/5",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "prestamos",
+                    "5"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "autores",
+          "item": [
+            {
+              "name": "autores",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/autores",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "autores"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "autores_por_id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/autores/2",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "autores",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update_autor",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombreAutor\": \"Mario V. Llosa\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/autores/1",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "autores",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create_autor",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nombreAutor\": \"Harper Lee\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/autores",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "autores"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_autor",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/autores/1",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "autores",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "general",
+          "item": [
+            {
+              "name": "resumenGeneral",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/resumen/general",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "resumen",
+                    "general"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "usuarios_y_prestamos",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { usuarios { id nombre email activo } prestamos { id idUsuario idLibro estado } }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/general",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "general"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "usuario_por_id",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($id: ID!) { usuario(id: $id) { id nombre apellidoPaterno apellidoMaterno email activo } }\",\n  \"variables\": {\n    \"id\": \"{{id_usuario}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/general",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "general"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "prestamo_por_id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($id: ID!) { prestamo(id: $id) { id idUsuario idLibro fechaPrestamo fechaDevolucion estado } }\",\n  \"variables\": {\n    \"id\": \"{{id_prestamo}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/general",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "general"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "querys_general_por_operation_name",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query usuariosYPrestamos{ usuarios { id nombre email activo } prestamos { id idUsuario idLibro estado } } query usuarioPorId($id_usuario: ID!) { usuario(id: $id_usuario) { id nombre apellidoPaterno apellidoMaterno email activo } } query prestamoPorId($id_prestamo: ID!) { prestamo(id: $id_prestamo) { id idUsuario idLibro fechaPrestamo fechaDevolucion estado } }\",\n  \"operationName\":\"prestamoPorId\",\n  \"variables\": {\n    \"id_prestamo\": \"{{id_prestamo}}\",\n    \"id_usuario\": \"{{id_usuario}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/general",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "general"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "catalogo",
+          "item": [
+            {
+              "name": "resumenCatalogo",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/resumen/catalogo",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "resumen",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "libros_y_autores",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { libros { id titulo idAutor } autores { id nombreAutor } }\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/catalogo",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "libro_por_id",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($id: ID!) { libro(id: $id) { id titulo isbn anioPublicacion copiasTotales copiasDisponible idAutor } }\",\n  \"variables\": {\n    \"id\": \"{{id_libro}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/catalogo",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "autor_por_id",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($id: ID!) { autor(id: $id) { id nombreAutor } }\",\n  \"variables\": {\n    \"id\": \"{{id_autor}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/catalogo",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "libros_por_autor",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query($idAutor: ID!) { librosPorAutor(idAutor: $idAutor) { id titulo idAutor } }\",\n  \"variables\": {\n    \"idAutor\": \"{{id_autor}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/catalogo",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "querys_catalogo_por_operation_name",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query librosYAutores { libros { id titulo idAutor } autores { id nombreAutor } } query libroPorId($id: ID!) { libro(id: $id) { id titulo isbn } } query librosDeAutor($idAutor: ID!) { librosPorAutor(idAutor: $idAutor) { id titulo idAutor } } query autorPorId($id: ID!) { autor(id: $id) { id nombreAutor } }\",\n  \"operationName\": \"librosYAutores\",\n  \"variables\": {\n    \"idAutor\": \"{{id_autor}}\",\n    \"id\": \"{{id_libro}}\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/graphql/catalogo",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "graphql",
+                    "catalogo"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "notificaciones",
+          "item": [
+            {
+              "name": "notificaciones",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/notificaciones",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "notificaciones"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "notificacion_por_id",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api/notificaciones/1",
+                  "protocol": "https",
+                  "host": [
+                    "functionsbiblioteca-d4bpb6h8fybvbhac",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "notificaciones",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "publisher",
+          "item": [
+            {
+              "name": "prestamo",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"eventType\": \"Prestamo.Creado\",\n    \"subject\": \"biblioteca/prestamos/test-001\",\n    \"data\": {\n        \"id\": \"999\",\n        \"idUsuario\": \"1\",\n        \"idLibro\": \"1\",\n        \"fechaPrestamo\": \"2026-05-01\",\n        \"fechaDevolucion\": \"2026-05-15\",\n        \"estado\": \"PRESTADO\"\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functioneventrouting-f9bfg5dqcffhftas.eastus-01.azurewebsites.net/api/eventPublisher?code={{REEMPLAZAR_FUNCTION_KEY}}",
+                  "protocol": "https",
+                  "host": [
+                    "functioneventrouting-f9bfg5dqcffhftas",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "eventPublisher"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "{{REEMPLAZAR_FUNCTION_KEY}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "devolucion",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"eventType\": \"Prestamo.Devuelto\",\n    \"subject\": \"biblioteca/prestamos/test-001\",\n    \"data\": {\n        \"id\": \"999\",\n        \"idUsuario\": \"1\",\n        \"idLibro\": \"1\",\n        \"estado\": \"DEVUELTO\"\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functioneventrouting-f9bfg5dqcffhftas.eastus-01.azurewebsites.net/api/eventPublisher?code={{REEMPLAZAR_FUNCTION_KEY}}",
+                  "protocol": "https",
+                  "host": [
+                    "functioneventrouting-f9bfg5dqcffhftas",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "eventPublisher"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "{{REEMPLAZAR_FUNCTION_KEY}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "inhabilitar_usuario",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"eventType\": \"Usuario.Inactivado\",\n    \"subject\": \"biblioteca/usuarios/4\",\n    \"data\": {\n        \"id\": \"4\",\n        \"prestamosActivos\": 1\n    }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://functioneventrouting-f9bfg5dqcffhftas.eastus-01.azurewebsites.net/api/eventPublisher?code={{REEMPLAZAR_FUNCTION_KEY}}",
+                  "protocol": "https",
+                  "host": [
+                    "functioneventrouting-f9bfg5dqcffhftas",
+                    "eastus-01",
+                    "azurewebsites",
+                    "net"
+                  ],
+                  "path": [
+                    "api",
+                    "eventPublisher"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "{{REEMPLAZAR_FUNCTION_KEY}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bff_instancia_aws",
+      "item": [
+        {
+          "name": "BFF",
+          "item": [
+            {
+              "name": "usuarios",
+              "item": [
+                {
+                  "name": "usuarios",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/usuarios",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "create_usuario",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nombre\": \"Pedro\",\n  \"apellidoPaterno\": \"Soto\",\n  \"apellidoMaterno\": \"García\",\n  \"email\": \"pedro.soto@correo.cl\",\n  \"activo\": true\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/usuarios",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "usuario_por_id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/usuarios/4",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios",
+                        "4"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "update_usuario",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nombre\": \"Juan\",\n    \"apellidoPaterno\": \"Pérez\",\n    \"apellidoMaterno\": \"Soto\",\n    \"email\": \"juan.perez@correo.cl\",\n    \"activo\": true\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/usuarios/2",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios",
+                        "2"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete_usuario",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/usuarios/2",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "usuarios",
+                        "2"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "autores",
+              "item": [
+                {
+                  "name": "autores",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/autores",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "create_autor",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nombreAutor\": \"Mario Vargas Llosa\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/autores",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "autores_por_id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/autores/1",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "update_autor",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nombreAutor\": \"Mario V. Llosa\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/autores/1",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete_autor",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/autores/8",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "autores",
+                        "8"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "libros",
+              "item": [
+                {
+                  "name": "libros",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ATRASADO\"\n}"
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/libros",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "create_libro",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"isbn\": \"9780061120084\",\n  \"titulo\": \"To Kill a Mockingbird\",\n  \"anioPublicacion\": 1960,\n  \"copiasTotales\": 3,\n  \"copiasDisponible\": 2,\n  \"idAutor\": \"2\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/libros",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "libros_por_id",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ATRASADO\"\n}"
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/libros/4",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros",
+                        "4"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete_libro",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/libros/6",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros",
+                        "6"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "update_libro",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"isbn\": \"9780061120084\",\n  \"titulo\": \"To Kill a Mockingbird\",\n  \"anioPublicacion\": 1960,\n  \"copiasTotales\": 3,\n  \"copiasDisponible\": 3,\n  \"idAutor\": \"2\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/libros",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "libros"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "prestamos",
+              "item": [
+                {
+                  "name": "prestamos",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/prestamos",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "prestamos"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "create_prestamo",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idUsuario\": \"5\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-25\",\n  \"fechaDevolucion\": \"2026-03-27\",\n  \"estado\": \"ACTIVO\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/prestamos",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "prestamos"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "delete_prestamo",
+                  "request": {
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idUsuario\": \"2\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-26\",\n  \"fechaDevolucion\": \"2026-04-09\",\n  \"estado\": \"ACTIVO\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/prestamos/4",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "prestamos",
+                        "4"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "update_prestamo",
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"idUsuario\": \"6\",\n  \"idLibro\": \"1\",\n  \"fechaPrestamo\": \"2026-03-25\",\n  \"fechaDevolucion\": \"2026-03-26\",\n  \"estado\": \"DEVUELTO\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/prestamos/5",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "prestamos",
+                        "5"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "general",
+              "item": [
+                {
+                  "name": "resumenGeneral",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/resumen/general",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "resumen",
+                        "general"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "querys_general_por_operation_name",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query usuariosYPrestamos{ usuarios { id nombre email activo } prestamos { id idUsuario idLibro estado } } query usuarioPorId($id_usuario: ID!) { usuario(id: $id_usuario) { id nombre apellidoPaterno apellidoMaterno email activo } } query prestamoPorId($id_prestamo: ID!) { prestamo(id: $id_prestamo) { id idUsuario idLibro fechaPrestamo fechaDevolucion estado } }\",\n  \"operationName\":\"prestamoPorId\",\n  \"variables\": {\n    \"id_prestamo\": \"{{id_prestamo}}\",\n    \"id_usuario\": \"{{id_usuario}}\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/general",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "general"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "usuarios_y_prestamos",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query { usuarios { id nombre email activo } prestamos { id idUsuario idLibro estado } }\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/general",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "general"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "usuario_por_id",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query($id: ID!) { usuario(id: $id) { id nombre apellidoPaterno apellidoMaterno email activo } }\",\n  \"variables\": {\n    \"id\": \"{{id_usuario}}\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/general",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "general"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "prestamo_por_id",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query($id: ID!) { prestamo(id: $id) { id idUsuario idLibro fechaPrestamo fechaDevolucion estado } }\",\n  \"variables\": {\n    \"id\": \"{{id_prestamo}}\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/general",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "general"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "catalogo",
+              "item": [
+                {
+                  "name": "resumenCatalogo",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/resumen/catalogo",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "resumen",
+                        "catalogo"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "querys_catalogo_por_operation_name",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query librosYAutores { libros { id titulo idAutor } autores { id nombreAutor } } query libroPorId($id: ID!) { libro(id: $id) { id titulo isbn } } query librosDeAutor($idAutor: ID!) { librosPorAutor(idAutor: $idAutor) { id titulo idAutor } } query autorPorId($id: ID!) { autor(id: $id) { id nombreAutor } }\",\n  \"operationName\": \"librosYAutores\",\n  \"variables\": {\n    \"idAutor\": \"{{id_autor}}\",\n    \"id\": \"{{id_libro}}\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/catalogo",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "catalogo"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "libros_y_autores",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query { libros { id titulo idAutor } autores { id nombreAutor } }\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/catalogo",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "catalogo"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "libro_por_id",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query($id: ID!) { libro(id: $id) { id titulo isbn anioPublicacion copiasTotales copiasDisponible idAutor } }\",\n  \"variables\": {\n    \"id\": \"{{id_libro}}\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/catalogo",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "catalogo"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "autor_por_id",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query($id: ID!) { autor(id: $id) { id nombreAutor } }\",\n  \"variables\": {\n    \"id\": \"{{id_autor}}\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/catalogo",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "catalogo"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "libros_por_autor",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"query($idAutor: ID!) { librosPorAutor(idAutor: $idAutor) { id titulo idAutor } }\",\n  \"variables\": {\n    \"idAutor\": \"{{id_autor}}\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/graphql/catalogo",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "graphql",
+                        "catalogo"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "notificaciones",
+              "item": [
+                {
+                  "name": "notificaciones",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/notificaciones",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "notificaciones"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "notificacion_por_id_usuario",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "http://54.166.226.140:8080/api/notificaciones/1",
+                      "protocol": "http",
+                      "host": [
+                        "54",
+                        "166",
+                        "226",
+                        "140"
+                      ],
+                      "port": "8080",
+                      "path": [
+                        "api",
+                        "notificaciones",
+                        "1"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
