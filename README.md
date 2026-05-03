@@ -647,7 +647,7 @@ docker-compose up -d
 
 1. **Conectar por SSH a servidor**
 ```bash
-ssh usuario@54.225.56.236
+ssh usuario@ip
 ```
 
 2. **Reproducir contenedor**

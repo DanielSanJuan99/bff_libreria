@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import cl.duoc.biblioteca.bff.dto.AutorDto;
 import cl.duoc.biblioteca.bff.dto.LibroDto;
+import cl.duoc.biblioteca.bff.dto.NotificacionDto;
 import cl.duoc.biblioteca.bff.dto.PrestamoDto;
 import cl.duoc.biblioteca.bff.dto.UsuarioDto;
 
@@ -345,6 +346,35 @@ public class FunctionsGatewayClient {
     public Map<String, Object> deleteAutor(String id) {
         String response = restClient.delete()
                 .uri("/autores/{id}", id)
+                .retrieve()
+                .body(String.class);
+        return parseResponse(response, new TypeReference<>() {
+        });
+    }
+
+    /**
+     * Obtiene todas las notificaciones generadas por el consumer de Event Grid.
+     *
+     * @return listado en {@link List} de {@link NotificacionDto}.
+     */
+    public List<NotificacionDto> getNotificaciones() {
+        String response = restClient.get()
+                .uri("/notificaciones")
+                .retrieve()
+                .body(String.class);
+        return parseResponse(response, new TypeReference<>() {
+        });
+    }
+
+    /**
+     * Obtiene las notificaciones de un usuario específico.
+     *
+     * @param idUsuario identificador del usuario en {@link String}.
+     * @return listado en {@link List} de {@link NotificacionDto}.
+     */
+    public List<NotificacionDto> getNotificacionesByUsuario(String idUsuario) {
+        String response = restClient.get()
+                .uri("/notificaciones/{idUsuario}", idUsuario)
                 .retrieve()
                 .body(String.class);
         return parseResponse(response, new TypeReference<>() {
