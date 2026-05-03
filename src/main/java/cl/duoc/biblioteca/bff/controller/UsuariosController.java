@@ -1,5 +1,6 @@
 package cl.duoc.biblioteca.bff.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.duoc.biblioteca.bff.client.EventPublisherClient;
 import cl.duoc.biblioteca.bff.client.FunctionsGatewayClient;
 import cl.duoc.biblioteca.bff.dto.UsuarioDto;
 import jakarta.validation.Valid;
@@ -21,15 +23,21 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/usuarios")
 public class UsuariosController {
 
+    private static final String EVENT_USUARIO_INACTIVO = "Usuario.Inactivado";
+
     private final FunctionsGatewayClient functionsGatewayClient;
+    private final EventPublisherClient eventPublisherClient;
 
     /**
      * Crea el controlador de usuarios.
      *
      * @param functionsGatewayClient cliente gateway de tipo {@link FunctionsGatewayClient}.
+     * @param eventPublisherClient cliente publisher de eventos de tipo {@link EventPublisherClient}.
      */
-    public UsuariosController(FunctionsGatewayClient functionsGatewayClient) {
+    public UsuariosController(FunctionsGatewayClient functionsGatewayClient,
+                              EventPublisherClient eventPublisherClient) {
         this.functionsGatewayClient = functionsGatewayClient;
+        this.eventPublisherClient = eventPublisherClient;
     }
 
     /**
@@ -77,13 +85,25 @@ public class UsuariosController {
     }
 
     /**
-     * Elimina un usuario por su identificador.
+     * Elimina un usuario por su identificador y publica {@code Usuario.Inactivado}
+     * cuando la function reporta préstamos pendientes y deja al usuario inactivo.
      *
      * @param id identificador del usuario en {@link String}.
      * @return respuesta HTTP en {@link ResponseEntity} con resultado en {@link Map}.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> eliminar(@PathVariable String id) {
-        return ResponseEntity.ok(functionsGatewayClient.deleteUsuario(id));
+        Map<String, Object> response = functionsGatewayClient.deleteUsuario(id);
+        if (response != null && response.containsKey("prestamosActivos")) {
+            Map<String, Object> data = new LinkedHashMap<>();
+            data.put("id", id);
+            data.put("prestamosActivos", response.get("prestamosActivos"));
+            data.put("usuario", response.get("usuario"));
+            eventPublisherClient.publishAsync(
+                    EVENT_USUARIO_INACTIVO,
+                    "biblioteca/usuarios/" + id,
+                    data);
+        }
+        return ResponseEntity.ok(response);
     }
 }

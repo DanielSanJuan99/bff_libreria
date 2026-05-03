@@ -7,3 +7,6 @@ spring:
 
 functions:
   base-url: ${FUNCTIONS_BASE_URL:http://localhost:7071/api}
+
+event-publisher:
+  url: ${EVENT_PUBLISHER_URL:}

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cl.duoc.biblioteca.bff.client.EventPublisherClient;
 import cl.duoc.biblioteca.bff.client.FunctionsGatewayClient;
 import cl.duoc.biblioteca.bff.dto.PrestamoDto;
 import jakarta.validation.Valid;
@@ -21,15 +22,22 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/prestamos")
 public class PrestamosController {
 
+    private static final String EVENT_PRESTAMO_CREADO = "Prestamo.Creado";
+    private static final String EVENT_PRESTAMO_DEVUELTO = "Prestamo.Devuelto";
+
     private final FunctionsGatewayClient functionsGatewayClient;
+    private final EventPublisherClient eventPublisherClient;
 
     /**
      * Crea el controlador de préstamos.
      *
      * @param functionsGatewayClient cliente gateway de tipo {@link FunctionsGatewayClient}.
+     * @param eventPublisherClient cliente publisher de eventos de tipo {@link EventPublisherClient}.
      */
-    public PrestamosController(FunctionsGatewayClient functionsGatewayClient) {
+    public PrestamosController(FunctionsGatewayClient functionsGatewayClient,
+                               EventPublisherClient eventPublisherClient) {
         this.functionsGatewayClient = functionsGatewayClient;
+        this.eventPublisherClient = eventPublisherClient;
     }
 
     /**
@@ -54,18 +62,24 @@ public class PrestamosController {
     }
 
     /**
-     * Crea un nuevo préstamo.
+     * Crea un nuevo préstamo y publica el evento {@code Prestamo.Creado}.
      *
      * @param request datos del préstamo en {@link PrestamoDto}.
      * @return respuesta HTTP en {@link ResponseEntity} con el {@link PrestamoDto} creado.
      */
     @PostMapping
     public ResponseEntity<PrestamoDto> crear(@Valid @RequestBody PrestamoDto request) {
-        return ResponseEntity.ok(functionsGatewayClient.createPrestamo(request));
+        PrestamoDto creado = functionsGatewayClient.createPrestamo(request);
+        eventPublisherClient.publishAsync(
+                EVENT_PRESTAMO_CREADO,
+                "biblioteca/prestamos/" + creado.id(),
+                creado);
+        return ResponseEntity.ok(creado);
     }
 
     /**
-     * Actualiza un préstamo existente.
+     * Actualiza un préstamo existente y publica {@code Prestamo.Devuelto} si el
+     * nuevo estado corresponde a una devolución.
      *
      * @param id identificador del préstamo en {@link String}.
      * @param request datos actualizados en {@link PrestamoDto}.
@@ -73,7 +87,15 @@ public class PrestamosController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<PrestamoDto> actualizar(@PathVariable String id, @Valid @RequestBody PrestamoDto request) {
-        return ResponseEntity.ok(functionsGatewayClient.updatePrestamo(id, request));
+        PrestamoDto actualizado = functionsGatewayClient.updatePrestamo(id, request);
+        if (actualizado != null && actualizado.estado() != null
+                && "DEVUELTO".equalsIgnoreCase(actualizado.estado())) {
+            eventPublisherClient.publishAsync(
+                    EVENT_PRESTAMO_DEVUELTO,
+                    "biblioteca/prestamos/" + actualizado.id(),
+                    actualizado);
+        }
+        return ResponseEntity.ok(actualizado);
     }
 
     /**
