@@ -23,6 +23,8 @@ El BFF expone una API REST unificada y coherente para la gestión de un sistema 
 ✓ **Configuración Flexible**: Soporta múltiples entornos (desarrollo, staging, producción)  
 ✓ **Contenedorización Docker**: Imagen multi-arquitectura (amd64 + arm64) en Docker Hub  
 ✓ **Soporte REST y GraphQL**: Expone rutas para resúmenes y consultas GraphQL del backend  
+✓ **Publisher de Event Grid**: Publica eventos de dominio (`Prestamo.Creado`, `Prestamo.Devuelto`, `Usuario.Inactivo`) de forma asíncrona (fire-and-forget)  
+✓ **Endpoint de notificaciones**: Expone la lectura de notificaciones generadas por el consumer Event Grid del backend  
 ✓ **Validación de Datos**: Integración con Jakarta Bean Validation  
 ✓ **Documentación Completa**: JavaDoc en todas las clases principales  
 ✓ **Pruebas Automatizadas**: Suite de pruebas unitarias incluida  
@@ -85,22 +87,26 @@ bff_libreria/
 │   │   │   ├── BffApplication.java          # Punto de entrada Spring Boot
 │   │   │   ├── client/
 │   │   │   │   ├── FunctionsGatewayClient.java  # Cliente HTTP a Azure Functions
+│   │   │   │   ├── EventPublisherClient.java    # Cliente HTTP al publisher de Event Grid
 │   │   │   │   └── RestClientConfig.java        # Configuración de RestClient
 │   │   │   ├── config/
 │   │   │   │   ├── FunctionsProperties.java     # Propiedades inyectadas
+│   │   │   │   ├── EventPublisherProperties.java# URL del publisher de Event Grid
 │   │   │   │   └── ...
 │   │   │   ├── controller/
-│   │   │   │   ├── UsuariosController.java      # Endpoints de usuarios
+│   │   │   │   ├── UsuariosController.java      # Endpoints de usuarios (DELETE publica Usuario.Inactivo)
 │   │   │   │   ├── LibrosController.java        # Endpoints de libros
 │   │   │   │   ├── AutoresController.java       # Endpoints de autores
-│   │   │   │   ├── PrestamosController.java     # Endpoints de préstamos
+│   │   │   │   ├── PrestamosController.java     # Endpoints de préstamos (POST/PUT publican eventos)
 │   │   │   │   ├── ResumenController.java       # Endpoints de resumen
-│   │   │   │   └── GraphqlController.java       # Endpoints GraphQL
+│   │   │   │   ├── GraphqlController.java       # Endpoints GraphQL
+│   │   │   │   └── NotificacionesController.java# Endpoints de notificaciones (passthrough al backend)
 │   │   │   └── dto/
 │   │   │       ├── UsuarioDto.java
 │   │   │       ├── LibroDto.java
 │   │   │       ├── AutorDto.java
-│   │   │       └── PrestamoDto.java
+│   │   │       ├── PrestamoDto.java
+│   │   │       └── NotificacionDto.java
 │   │   └── resources/
 │   │       └── application.yml                   # Configuración global
 │   └── test/
@@ -127,6 +133,9 @@ spring:
 
 functions:
   base-url: ${FUNCTIONS_BASE_URL:http://localhost:7071/api}  # URL del backend Azure Functions
+
+event-publisher:
+  url: ${EVENT_PUBLISHER_URL:}        # URL completa del publisher de Event Grid (incluye ?code=...)
 ```
 
 ### Variables de Entorno
@@ -135,12 +144,16 @@ functions:
 |----------|---------|-------------|
 | `SERVER_PORT` | `8080` | Puerto donde corre el BFF |
 | `FUNCTIONS_BASE_URL` | `http://localhost:7071/api` | URL base de Azure Functions (desarrollo local) |
+| `EVENT_PUBLISHER_URL` | *(vacío)* | URL completa del publisher de Event Grid del Function App `functioneventrouting`, incluye `?code=<FUNCTION_KEY>`. Si queda vacío, las publicaciones se omiten silenciosamente. |
 
 **Ejemplo para Azure en producción:**
 ```bash
 export SERVER_PORT=8080
 export FUNCTIONS_BASE_URL=https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api
+export EVENT_PUBLISHER_URL=https://functioneventrouting-f9bfg5dqcffhftas.eastus-01.azurewebsites.net/api/eventPublisher?code=<REEMPLAZAR_FUNCTION_KEY>
 ```
+
+> El template completo de variables vive en `.env.example`.
 
 ---
 
@@ -315,6 +328,8 @@ Elimina un usuario (o lo marca inactivo si tiene préstamos pendientes).
 }
 ```
 
+> **Evento publicado:** si el usuario queda **inactivo** por tener préstamos activos, el BFF publica de forma asíncrona el evento `Usuario.Inactivo` al Event Grid Topic. La respuesta HTTP no espera al broker (fire-and-forget).
+
 ---
 
 ### **Libros**
@@ -423,11 +438,81 @@ Crea un nuevo préstamo.
 }
 ```
 
+> **Evento publicado:** tras la creación, el BFF publica `Prestamo.Creado` al Event Grid Topic (fire-and-forget).
+
 #### PUT `/api/prestamos/{id}`
 Actualiza un préstamo existente.
 
+> **Evento publicado:** si el `estado` queda en `DEVUELTO`, el BFF publica `Prestamo.Devuelto` al Event Grid Topic (fire-and-forget). Otros cambios de estado no emiten evento.
+
 #### DELETE `/api/prestamos/{id}`
 Elimina un préstamo.
+
+---
+
+## Flujo event-driven (Publisher)
+
+El BFF actúa como **publisher** dentro de la arquitectura event-driven. Ciertas operaciones REST disparan, además de la respuesta sincrónica, una publicación asíncrona al Event Grid Topic vía el Function App `functioneventrouting`.
+
+| Operación REST                          | Evento publicado     | `subject`                               |
+|-----------------------------------------|----------------------|-----------------------------------------|
+| `POST /api/prestamos`                   | `Prestamo.Creado`    | `biblioteca/prestamos/{id}`             |
+| `PUT /api/prestamos/{id}` con `estado=DEVUELTO` | `Prestamo.Devuelto` | `biblioteca/prestamos/{id}`             |
+| `DELETE /api/usuarios/{id}` (resulta en inactivo) | `Usuario.Inactivo` | `biblioteca/usuarios/{id}`              |
+
+```
+[Cliente] → BFF (POST/PUT/DELETE)
+              ├─→ Azure Functions CRUD (sincrónico, response al cliente)
+              └─→ EventPublisherClient.publishAsync() (fire-and-forget)
+                        ↓
+                  eventPublisher (functioneventrouting)
+                        ↓ sendEvent()
+                  Event Grid Topic: biblioteca-topics
+                        ↓ Event Subscription
+                  notificacionConsumer (functionsbiblioteca)
+                        ↓ persiste
+                  Tabla NOTIFICACIONES
+                        ↑ visible en
+                  GET /api/notificaciones (passthrough del BFF)
+```
+
+**Características:**
+- **Asíncrono:** la publicación corre en `CompletableFuture.runAsync`, la respuesta HTTP no espera al broker.
+- **Tolerante a fallo de publicación:** si el publisher está caído o `EVENT_PUBLISHER_URL` no está configurado, la operación CRUD igual responde 200/201 al cliente; la publicación se loggea como warning.
+- **Desacoplado:** el BFF no conoce al consumer ni al Topic — solo conoce la URL del publisher.
+
+---
+
+### **Notificaciones**
+
+Endpoints de **lectura** que actúan como passthrough hacia la función `notificaciones` del backend (`functionsbiblioteca`). Las notificaciones son materializadas por el consumer Event Grid (`notificacionConsumer`) en respuesta a los eventos publicados por este mismo BFF.
+
+#### GET `/api/notificaciones`
+Lista todas las notificaciones generadas por el consumer (más recientes primero).
+
+**Respuesta (200 OK):**
+```json
+[
+  {
+    "id": "12",
+    "idUsuario": "1",
+    "tipo": "PRESTAMO_CREADO",
+    "asunto": "Préstamo registrado",
+    "cuerpo": "Tu préstamo del libro 5 ha sido registrado.",
+    "estado": "PENDIENTE",
+    "fechaCreacion": "2026-05-03T10:30:00Z",
+    "fechaEnvio": null
+  }
+]
+```
+
+#### GET `/api/notificaciones/{idUsuario}`
+Lista notificaciones de un usuario específico.
+
+**Parámetros:**
+- `idUsuario` (path): identificador del usuario
+
+> **Nota:** estos endpoints son de **solo lectura**. La generación de notificaciones es asíncrona y sucede cuando el consumer del backend recibe un evento del Topic — esperar 5–10 s tras una operación que publique evento antes de consultar.
 
 ---
 
@@ -578,8 +663,11 @@ docker run -d \
   -p 8080:8080 \
   -e SERVER_PORT=8080 \
   -e FUNCTIONS_BASE_URL=https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api \
+  -e EVENT_PUBLISHER_URL='https://functioneventrouting-f9bfg5dqcffhftas.eastus-01.azurewebsites.net/api/eventPublisher?code=<REEMPLAZAR_FUNCTION_KEY>' \
   dimmox/biblioteca-bff:latest
 ```
+
+> Si vas a parametrizar varias variables, prefiere `--env-file .env` apuntando a un archivo `.env` local (basado en `.env.example`).
 
 #### 3. Verificación del Contenedor en Ejecución
 
@@ -631,6 +719,7 @@ services:
     environment:
       - SERVER_PORT=8080
       - FUNCTIONS_BASE_URL=http://host.docker.internal:7071/api
+      - EVENT_PUBLISHER_URL=${EVENT_PUBLISHER_URL:-}   # opcional: URL completa del publisher de Event Grid
     # En caso de usar redes de contenedores personalizadas, ajustar host.docker.internal en consecuencia
 ```
 
@@ -655,10 +744,11 @@ ssh usuario@ip
 docker run -d \
   --name bff-biblioteca-prod \
   -p 8080:8080 \
-  -e SERVER_PORT=8080 \
-  -e FUNCTIONS_BASE_URL=https://functionsbiblioteca-d4bpb6h8fybvbhac.eastus-01.azurewebsites.net/api \
+  --env-file .env \
   dimmox/biblioteca-bff:latest
 ```
+
+> El `.env` debe contener `SERVER_PORT`, `FUNCTIONS_BASE_URL` y `EVENT_PUBLISHER_URL` (ver `.env.example`).
 
 3. **Verificación de accesibilidad**
 ```bash
@@ -699,6 +789,7 @@ Métodos principales:
 - `getLibros()`, `getLibroById()`, `createLibro()`, `updateLibro()`, `deleteLibro()`
 - `getAutores()`, `getAutorById()`, `createAutor()`, `updateAutor()`, `deleteAutor()`
 - `getPrestamos()`, `getPrestamoById()`, `createPrestamo()`, `updatePrestamo()`, `deletePrestamo()`
+- `getNotificaciones()`, `getNotificacionesByUsuario()`
 
 #### 3. **Controllers**
 Exponen los endpoints REST. Configurados con `@RestController` y manejan:
@@ -712,9 +803,16 @@ Clases que representan estructuras de datos:
 - `LibroDto`
 - `AutorDto`
 - `PrestamoDto`
+- `NotificacionDto`
 
 #### 5. **FunctionsProperties.java**
 Clase de configuración que inyecta variables de entorno mediante `@ConfigurationProperties`.
+
+#### 6. **EventPublisherProperties.java**
+Clase de configuración (`@ConfigurationProperties(prefix = "event-publisher")`) que resuelve la URL del publisher de Event Grid desde `application.yml` / variable `EVENT_PUBLISHER_URL`.
+
+#### 7. **EventPublisherClient.java**
+Cliente HTTP fire-and-forget hacia el Function App `functioneventrouting`. Empaqueta cada evento como `{eventType, subject, data}` y lo publica de forma asíncrona vía `CompletableFuture.runAsync`, sin bloquear la respuesta REST del BFF.
 
 ### Patrones Implementados
 
@@ -725,6 +823,8 @@ Clase de configuración que inyecta variables de entorno mediante `@Configuratio
 **Dependency Injection**: Spring inyecta todas las dependencias automáticamente.
 
 **RestClient**: Cliente HTTP moderno (reemplazo de RestTemplate en Spring Boot 3.2+).
+
+**Publisher / Event-Driven**: Operaciones REST seleccionadas publican eventos de dominio al Event Grid Topic vía `EventPublisherClient`, en modo fire-and-forget para no acoplar la latencia del cliente al broker.
 
 ---
 
