@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/usuarios")
 public class UsuariosController {
 
-    private static final String EVENT_USUARIO_INACTIVO = "Usuario.Inactivado";
+    private static final String EVENT_USUARIO_INACTIVO = "Usuario.Inactivo";
 
     private final FunctionsGatewayClient functionsGatewayClient;
     private final EventPublisherClient eventPublisherClient;
@@ -85,7 +85,7 @@ public class UsuariosController {
     }
 
     /**
-     * Elimina un usuario por su identificador y publica {@code Usuario.Inactivado}
+     * Elimina un usuario por su identificador y publica {@code Usuario.Inactivo}
      * cuando la function reporta préstamos pendientes y deja al usuario inactivo.
      *
      * @param id identificador del usuario en {@link String}.
