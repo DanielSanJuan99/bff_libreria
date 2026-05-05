@@ -1137,7 +1137,7 @@
                     ],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\n    \"eventType\": \"Usuario.Inactivado\",\n    \"subject\": \"biblioteca/usuarios/5\",\n    \"data\": {\n        \"id\": \"5\",\n        \"prestamosActivos\": 2\n    }\n}",
+                      "raw": "{\n    \"eventType\": \"Usuario.Inactivo\",\n    \"subject\": \"biblioteca/usuarios/5\",\n    \"data\": {\n        \"id\": \"5\",\n        \"prestamosActivos\": 2\n    }\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -2594,7 +2594,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"eventType\": \"Usuario.Inactivado\",\n    \"subject\": \"biblioteca/usuarios/4\",\n    \"data\": {\n        \"id\": \"4\",\n        \"prestamosActivos\": 1\n    }\n}",
+                  "raw": "{\n    \"eventType\": \"Usuario.Inactiv\",\n    \"subject\": \"biblioteca/usuarios/4\",\n    \"data\": {\n        \"id\": \"4\",\n        \"prestamosActivos\": 1\n    }\n}",
                   "options": {
                     "raw": {
                       "language": "json"
