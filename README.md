@@ -23,8 +23,9 @@ El BFF expone una API REST unificada y coherente para la gestión de un sistema 
 ✓ **Configuración Flexible**: Soporta múltiples entornos (desarrollo, staging, producción)  
 ✓ **Contenedorización Docker**: Imagen multi-arquitectura (amd64 + arm64) en Docker Hub  
 ✓ **Soporte REST y GraphQL**: Expone rutas para resúmenes y consultas GraphQL del backend  
-✓ **Publisher de Event Grid**: Publica eventos de dominio (`Prestamo.Creado`, `Prestamo.Devuelto`, `Usuario.Inactivo`) de forma asíncrona (fire-and-forget)  
+✓ **Publisher de Event Grid**: Publica eventos de dominio (`Prestamo.Creado`, `Prestamo.Devuelto`, `Usuario.EliminacionSolicitada`) de forma asíncrona (fire-and-forget)  
 ✓ **Endpoint de notificaciones**: Expone la lectura de notificaciones generadas por el consumer Event Grid del backend  
+✓ **Manejo de errores transparente**: `GlobalExceptionHandler` propaga el status HTTP real de las Azure Functions (404, 409, etc.) en lugar de enmascararlos como 500  
 ✓ **Validación de Datos**: Integración con Jakarta Bean Validation  
 ✓ **Documentación Completa**: JavaDoc en todas las clases principales  
 ✓ **Pruebas Automatizadas**: Suite de pruebas unitarias incluida  
@@ -94,13 +95,15 @@ bff_libreria/
 │   │   │   │   ├── EventPublisherProperties.java# URL del publisher de Event Grid
 │   │   │   │   └── ...
 │   │   │   ├── controller/
-│   │   │   │   ├── UsuariosController.java      # Endpoints de usuarios (DELETE publica Usuario.Inactivo)
+│   │   │   │   ├── UsuariosController.java      # Endpoints de usuarios (DELETE publica Usuario.EliminacionSolicitada)
 │   │   │   │   ├── LibrosController.java        # Endpoints de libros
 │   │   │   │   ├── AutoresController.java       # Endpoints de autores
 │   │   │   │   ├── PrestamosController.java     # Endpoints de préstamos (POST/PUT publican eventos)
 │   │   │   │   ├── ResumenController.java       # Endpoints de resumen
 │   │   │   │   ├── GraphqlController.java       # Endpoints GraphQL
 │   │   │   │   └── NotificacionesController.java# Endpoints de notificaciones (passthrough al backend)
+│   │   │   ├── exception/
+│   │   │   │   └── GlobalExceptionHandler.java  # @ControllerAdvice: propaga status HTTP real de las Functions
 │   │   │   └── dto/
 │   │   │       ├── UsuarioDto.java
 │   │   │       ├── LibroDto.java
@@ -318,17 +321,20 @@ Actualiza un usuario existente.
 **Respuesta (200 OK):** El usuario actualizado
 
 #### DELETE `/api/usuarios/{id}`
-Elimina un usuario (o lo marca inactivo si tiene préstamos pendientes).
+Solicita la baja de un usuario. La respuesta es **inmediata** (snapshot) y la eliminación física la procesa el consumer `usuarioEliminadoConsumer` en cascada.
 
-**Respuesta (200 OK):**
+**Respuesta (202 Accepted):**
 ```json
 {
-  "mensaje": "Usuario eliminado exitosamente",
-  "id": "3"
+  "mensaje": "Eliminacion solicitada; sera procesada en cascada por evento Usuario.EliminacionSolicitada",
+  "idUsuario": "3",
+  "usuario": { "id": "3", "nombre": "Carlos", "...": "..." },
+  "prestamos": [ { "id": "10", "idLibro": "5", "estado": "PRESTADO" } ],
+  "totalPrestamos": 1
 }
 ```
 
-> **Evento publicado:** si el usuario queda **inactivo** por tener préstamos activos, el BFF publica de forma asíncrona el evento `Usuario.Inactivo` al Event Grid Topic. La respuesta HTTP no espera al broker (fire-and-forget).
+> **Evento publicado:** el BFF publica `Usuario.EliminacionSolicitada` al Event Grid Topic con el snapshot (`usuario` + `prestamos`) como `data`. La respuesta HTTP no espera al broker (fire-and-forget). El consumer del backend devuelve copias al stock, cancela y borra los préstamos, y elimina al usuario.
 
 ---
 
@@ -454,11 +460,11 @@ Elimina un préstamo.
 
 El BFF actúa como **publisher** dentro de la arquitectura event-driven. Ciertas operaciones REST disparan, además de la respuesta sincrónica, una publicación asíncrona al Event Grid Topic vía el Function App `functioneventrouting`.
 
-| Operación REST                          | Evento publicado     | `subject`                               |
-|-----------------------------------------|----------------------|-----------------------------------------|
-| `POST /api/prestamos`                   | `Prestamo.Creado`    | `biblioteca/prestamos/{id}`             |
-| `PUT /api/prestamos/{id}` con `estado=DEVUELTO` | `Prestamo.Devuelto` | `biblioteca/prestamos/{id}`             |
-| `DELETE /api/usuarios/{id}` (resulta en inactivo) | `Usuario.Inactivo` | `biblioteca/usuarios/{id}`              |
+| Operación REST                                     | Evento publicado                | `subject`                       |
+|----------------------------------------------------|---------------------------------|---------------------------------|
+| `POST /api/prestamos`                              | `Prestamo.Creado`               | `biblioteca/prestamos/{id}`     |
+| `PUT /api/prestamos/{id}` con `estado=DEVUELTO`    | `Prestamo.Devuelto`             | `biblioteca/prestamos/{id}`     |
+| `DELETE /api/usuarios/{id}`                        | `Usuario.EliminacionSolicitada` | `biblioteca/usuarios/{id}`      |
 
 ```
 [Cliente] → BFF (POST/PUT/DELETE)
@@ -468,10 +474,10 @@ El BFF actúa como **publisher** dentro de la arquitectura event-driven. Ciertas
                   eventPublisher (functioneventrouting)
                         ↓ sendEvent()
                   Event Grid Topic: biblioteca-topics
-                        ↓ Event Subscription
-                  notificacionConsumer (functionsbiblioteca)
-                        ↓ persiste
-                  Tabla NOTIFICACIONES
+                        ↓ fan-out a 3 Event Subscriptions
+                        ├─→ notificacionConsumer       → tabla NOTIFICACION
+                        ├─→ prestamosStockConsumer     → ajusta COPIAS_DISPONIBLE en LIBRO
+                        └─→ usuarioEliminadoConsumer   → cascada (LIBRO + PRESTAMO + USUARIO + NOTIFICACION)
                         ↑ visible en
                   GET /api/notificaciones (passthrough del BFF)
 ```
@@ -617,8 +623,9 @@ curl -X GET http://localhost:8080/api/prestamos/1
 # Eliminar usuario
 curl -X DELETE http://localhost:8080/api/usuarios/3
 
-# Nota: Si el usuario tiene préstamos activos, 
-# será marcado como inactivo en lugar de eliminado
+# Nota: la respuesta es 202 Accepted con snapshot del usuario y sus préstamos.
+# La eliminación física se procesa en cascada vía evento Usuario.EliminacionSolicitada
+# (consumer usuarioEliminadoConsumer del backend).
 ```
 
 ---
@@ -813,6 +820,15 @@ Clase de configuración (`@ConfigurationProperties(prefix = "event-publisher")`)
 
 #### 7. **EventPublisherClient.java**
 Cliente HTTP fire-and-forget hacia el Function App `functioneventrouting`. Empaqueta cada evento como `{eventType, subject, data}` y lo publica de forma asíncrona vía `CompletableFuture.runAsync`, sin bloquear la respuesta REST del BFF.
+
+#### 8. **GlobalExceptionHandler.java**
+`@ControllerAdvice` que captura las excepciones del `RestClient` hacia las Azure Functions y propaga el status real al cliente del BFF:
+
+- `RestClientResponseException` con status 4xx → se reenvía tal cual (404, 409, 400…) preservando el body de error original.
+- `RestClientResponseException` con status 5xx → se traduce a **502 Bad Gateway**.
+- `ResourceAccessException` (timeout, DNS, conexión rechazada) → **503 Service Unavailable**.
+
+Sin este handler, cualquier error aguas abajo se enmascararía como **500 Internal Server Error** y el cliente perdería información útil (p. ej. distinguir un 404 de un fallo real).
 
 ### Patrones Implementados
 
