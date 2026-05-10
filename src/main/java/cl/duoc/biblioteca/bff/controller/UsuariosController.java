@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/usuarios")
 public class UsuariosController {
 
-    private static final String EVENT_USUARIO_INACTIVO = "Usuario.Inactivo";
+    private static final String EVENT_USUARIO_ELIMINACION = "Usuario.EliminacionSolicitada";
 
     private final FunctionsGatewayClient functionsGatewayClient;
     private final EventPublisherClient eventPublisherClient;
@@ -85,8 +85,10 @@ public class UsuariosController {
     }
 
     /**
-     * Elimina un usuario por su identificador y publica {@code Usuario.Inactivo}
-     * cuando la function reporta préstamos pendientes y deja al usuario inactivo.
+     * Solicita la eliminacion de un usuario y publica {@code Usuario.EliminacionSolicitada}.
+     * La function REST responde 202 con el snapshot de prestamos del usuario;
+     * el consumer {@code reglasNegocioConsumer} hace la cascada (devolver copias
+     * al stock, cancelar y borrar prestamos, eliminar usuario).
      *
      * @param id identificador del usuario en {@link String}.
      * @return respuesta HTTP en {@link ResponseEntity} con resultado en {@link Map}.
@@ -94,13 +96,14 @@ public class UsuariosController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> eliminar(@PathVariable String id) {
         Map<String, Object> response = functionsGatewayClient.deleteUsuario(id);
-        if (response != null && response.containsKey("prestamosActivos")) {
+        if (response != null && response.containsKey("idUsuario")) {
             Map<String, Object> data = new LinkedHashMap<>();
-            data.put("id", id);
-            data.put("prestamosActivos", response.get("prestamosActivos"));
+            data.put("idUsuario", id);
             data.put("usuario", response.get("usuario"));
+            data.put("prestamos", response.get("prestamos"));
+            data.put("totalPrestamos", response.get("totalPrestamos"));
             eventPublisherClient.publishAsync(
-                    EVENT_USUARIO_INACTIVO,
+                    EVENT_USUARIO_ELIMINACION,
                     "biblioteca/usuarios/" + id,
                     data);
         }
